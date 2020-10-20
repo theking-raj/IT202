@@ -5,6 +5,7 @@
 //As an exercise swap these two and see how things change
 if (!is_logged_in()) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
+     $_SESSION['message'] = 'Must be login to go to your profile';
     die(header("Location: login.php"));
 }
 
