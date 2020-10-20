@@ -1,6 +1,10 @@
 body {
     font-family: system;
     font-size: 1.5em;
+    background-color: #080808;
+    color: #ffffff;
+    text-align: 25%;
+    background-image: url("https://images.unsplash.com/photo-1502318217862-aa4e294ba657?ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80");
 }
 
 ul[class="nav"]{
@@ -8,11 +12,17 @@ ul[class="nav"]{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #026e02;
+    background-color: black;
+    
+    
 }
 
 .nav > li {
-    float: left;
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    margin-left: 200px;
+    
 }
 
 .nav > li a {
@@ -24,51 +34,53 @@ ul[class="nav"]{
 }
 
 .nav > li a:hover {
-    background-color: #39ca40;
+    background-color: #0bf9ff6e;
+    
 }
 
 input, select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
+    width: 25%;
+    padding: 10px 20px;
+    margin: 10px 0;
+    display: block;
+    border: 5px black;
     border-radius: 4px;
     box-sizing: border-box;
+    
 }
 
 input[type=submit] {
-    width: 100%;
-    background-color: #026e02;
+    width: 25.3%;
+    background-color: black;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
+    padding: 15px 20px;
+    border: gray;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 2% ;
 }
 
 input:nth-of-type(1) {
     margin-left: 5px !important;
-    margin-right: 5px !important;
+    margin-right: 0px !important;
 }
 
 input:nth-of-type(2) {
-    margin-left: 10px !important;
-    margin-right: 10px !important;
+    margin-left: 5px !important;
+    margin-right: 0px !important;
 }
 
 input:nth-of-type(3) {
-    margin-left: 15px !important;
-    margin-right: 15px !important;
+    margin-left: 5px !important;
+    margin-right: 0px !important;
 }
 
 input:nth-of-type(4) {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
+    margin-left: 5px !important;
+    margin-right: 0px !important;
 }
 
 input:nth-of-type(5) {
-    margin-left: 25px !important;
-    margin-right: 25px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
