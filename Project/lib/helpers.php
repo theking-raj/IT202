@@ -68,5 +68,23 @@ function getMessages() {
     return array();
 }
 
-//end flash
+function getQuantityPrice($quantity,$id){
+
+    $db = getDB();
+    $stmt = $db->prepare("SELECT price FROM Products WHERE id=:id");
+    $r = $stmt->execute([
+    ":id" => $id,
+    ]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$result) {
+        $e = $stmt->errorInfo();
+        flash($e[2]);
+    }
+    
+    $pr = $result["price"];
+    
+    $total = $pr*$quantity;
+    return $total;
+
+}
 ?>
