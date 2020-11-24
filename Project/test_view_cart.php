@@ -7,42 +7,41 @@ if (!has_role("Admin")) {
 }
 ?>
 <?php
-//we'll put this at the top so both php block have access to it
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
-}
-?>
-<?php
-//fetching
-$result = [];
-if (isset($id)) {
-    $db = getDB();
-    $stmt = $db->prepare("SELECT Carts.product_id,Carts.name,Carts.price, Carts.quantity, Users.username FROM Carts JOIN Users on Carts.user_id = Users.id LEFT JOIN Products on Products.id = Carts.product_id WHERE Carts.product_id=:id");
-    $r = $stmt->execute([":id" => $id]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    if (!$result) {
-        $e = $stmt->errorInfo();
-        flash($e[2]);
-    }
+$db = getDB();
+$stmt = $db->prepare("SELECT Carts.product_id,Carts.name,Carts.price, Carts.quantity, Users.username FROM Carts JOIN Users on Carts.user_id = Users.id LEFT JOIN Products on Products.id = Carts.product_id");
+$r = $stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$total=0;
+
+foreach($results as $p){
+
+ $total+=$p["price"];
+
 }
 ?>
     <h3>View Cart</h3>
-<?php if (isset($result) && !empty($result)): ?>
     <div class="card">
-        <div class="card-title">
-            <?php safer_echo($result["name"]); ?>
+      <?php foreach ($results as $p): ?>
+        
+        <div class="card-title"><br>
+           <a type="button" href="test_view_products.php?id=<?php safer_echo($p['product_id']); ?>"><?php safer_echo($p["name"]); ?></a>
         </div>
         <div class="card-body">
             <div>
-                <p>Stats</p>
-                <div>Rate: <?php safer_echo($result["price"]); ?></div>
-                <div>Quantity: <?php safer_echo($result["quantity"]); ?></div>
-                <div>Product ID: <?php safer_echo($result["product_id"]); ?></div>
-                <div>Owned by: <?php safer_echo($result["username"]); ?></div>
+                <div>Rate: <?php safer_echo($p["price"]); ?></div>
+                <div>Quantity: <?php safer_echo($p["quantity"]); ?></div>
+                <div>Product ID: <?php safer_echo($p["product_id"]); ?></div>
+                <div>Owned by: <?php safer_echo($p["username"]); ?></div>
+                <div>
+                     <a type="button" href="test_view_cart.php" method = 'POST' value= "$p[product_id]">Delete</a>
+                </div>
             </div>
         </div>
+        <?php endforeach; ?>
+        <div class="total"><br>Total: $<?php safer_echo($total); ?></div>
+        <div class="card-title">
+                     <a type="button" href="test_view_cart.php" value="id" onclick="clearCart()">Clear Cart</a>
+                </div>
     </div>
-<?php else: ?>
-    <p>Error looking up id...</p>
-<?php endif; ?>
 <?php require(__DIR__ . "/partials/flash.php");

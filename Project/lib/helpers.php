@@ -87,4 +87,16 @@ function getQuantityPrice($quantity,$id){
     return $total;
 
 }
+
+function deleteRow($id)
+{
+
+    $db = getDB();
+    $stmt = $db->prepare("DELETE FROM Carts WHERE product_id=:product_id");
+    $r = $stmt->execute([":product_id"=>$id]);
+    return;
+
+}
+
+//end flash
 ?>
