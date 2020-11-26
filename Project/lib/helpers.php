@@ -68,6 +68,28 @@ function getMessages() {
     return array();
 }
 
+function deleteRow($id)
+{	
+    $db = getDB();
+    $stmt = $db->prepare("DELETE FROM Carts WHERE product_id=$id");
+    $r = $stmt->execute();
+    if($r)
+      return true;
+    else
+      return false;
+}
+
+function clearCart($id)
+{	
+    $db = getDB();
+    $stmt = $db->prepare("DELETE FROM Carts WHERE user_id=$id");
+    $r = $stmt->execute();
+    if($r)
+      return true;
+    else
+      return false;
+}
+
 function getQuantityPrice($quantity,$id){
 
     $db = getDB();
@@ -85,18 +107,6 @@ function getQuantityPrice($quantity,$id){
     
     $total = $pr*$quantity;
     return $total;
-
 }
 
-function deleteRow($id)
-{
-
-    $db = getDB();
-    $stmt = $db->prepare("DELETE FROM Carts WHERE product_id=:product_id");
-    $r = $stmt->execute([":product_id"=>$id]);
-    return;
-
-}
-
-//end flash
 ?>
