@@ -47,7 +47,6 @@ function safer_echo($var) {
     echo htmlspecialchars($var, ENT_QUOTES, "UTF-8");
 }
 
-//for flash feature
 function flash($msg) {
     if (isset($_SESSION['flash'])) {
         array_push($_SESSION['flash'], $msg);
@@ -68,29 +67,7 @@ function getMessages() {
     return array();
 }
 
-function deleteRow($id)
-{	
-    $db = getDB();
-    $stmt = $db->prepare("DELETE FROM Carts WHERE product_id=$id");
-    $r = $stmt->execute();
-    if($r)
-      return true;
-    else
-      return false;
-}
-
-function clearCart($id)
-{	
-    $db = getDB();
-    $stmt = $db->prepare("DELETE FROM Carts WHERE user_id=$id");
-    $r = $stmt->execute();
-    if($r)
-      return true;
-    else
-      return false;
-}
-
-function getQuantityPrice($quantity,$id){
+function getQuantityPrice($quantity,$id) {
 
     $db = getDB();
     $stmt = $db->prepare("SELECT price FROM Products WHERE id=:id");
@@ -107,6 +84,85 @@ function getQuantityPrice($quantity,$id){
     
     $total = $pr*$quantity;
     return $total;
+}
+
+function deleteRow($id) {	
+    $db = getDB();
+    $stmt = $db->prepare("DELETE FROM Carts WHERE product_id=$id");
+    $r = $stmt->execute();
+    if($r)
+      return true;
+    else
+      return false;
+}
+
+function clearCart($id) {	
+    $db = getDB();
+    $stmt = $db->prepare("DELETE FROM Carts WHERE user_id=$id");
+    $r = $stmt->execute();
+    if($r)
+      return true;
+    else
+      return false;
+}
+
+function CheckItem($id, $ShopBag) {
+     $db = getDB();
+     $stmt = $db->prepare("SELECT quantity FROM Products WHERE id=$id");
+     $r = $stmt->execute();
+     $result = $stmt->fetch(PDO::FETCH_ASSOC);    
+     $quantity = $result["quantity"];    
+         if($ShopBag<=$quantity)
+             return true; 
+         else
+             return false;
+}
+
+function UpdateItem($id, $ShopBag) {
+     $db = getDB();
+     $stmt = $db->prepare("SELECT quantity FROM Products WHERE id=$id");
+     $r = $stmt->execute();
+     $result = $stmt->fetch(PDO::FETCH_ASSOC);     
+     $quantity = $result["quantity"];    
+     $quantity2 = $quantity-$ShopBag;
+         $stmt = $db->prepare("UPDATE Products set quantity=:quantity WHERE id=:id");
+         $r = $stmt->execute([
+           ":id"=>$id,
+	         ":quantity"=>$quantity2 ]);
+     return true;
+}
+
+function PullItem($arr) {
+     $db = getDB();
+     $stmt = $db->prepare("SELECT name, quantity FROM Products WHERE id=$arr[0]");
+     $r = $stmt->execute();
+     $result = $stmt->fetch(PDO::FETCH_ASSOC);   
+         if($result["quantity"]>0){
+             $LimitedStock = $result["quantity"]. "stock left of" .$result["name"];
+         }
+         else{
+             $LimitedStock = $result["name"]. "is out of stock";
+         }     
+         if(count($arr)>1){
+             for($i=1; $i<count($arr); $i++){
+                 $stmt = $db->prepare("SELECT name, quantity FROM Products WHERE id=$arr[$i]");
+                 $r = $stmt->execute();
+                 $result = $stmt->fetch(PDO::FETCH_ASSOC);          
+                     if($result["quantity"]>0){
+                       $LimitedStock = $LimitedStock. "&" .$result["name"]. "limited stock of" .$result["quantity"];
+                     }
+                     else
+                     {
+                       $LimitedStock = $LimitedStock. "&" .$result["name"]. "is out of stock";
+                 }
+              }
+          } 
+         return $LimitedStock;
+}
+
+function validateStreetAddress($string) {
+    $check_pattern = '/\d+ [0-9a-zA-Z ]+/';
+    return preg_match($check_pattern, $string);
 }
 
 ?>

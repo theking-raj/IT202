@@ -31,7 +31,7 @@ $total=0;
                 <div>Owned by: <?php safer_echo($p["username"]); ?></div>
                 <div>
                      <a type="button" name="edit" href="admin_edit_cart.php?id=<?php safer_echo($p['product_id']); ?>">Edit</a>
-                     <a type="button" name="delete" href="remove_products.php?id=<?php safer_echo($p['product_id']); ?>">Delete</a>
+                     <a type="button" name="delete" href="remove_products.php?id=<?php safer_echo($p['product_id']); ?>">Remove</a>
                 </div>
             </div>
         </div>
@@ -39,7 +39,8 @@ $total=0;
         <div class="total"><br>Total: $<?php safer_echo($total); ?></div>
         <div class="card-title">
                 <div>
-                     <a type="button" name="delete" href="remove_cart.php?id=<?php safer_echo($p['user_id']); ?>">Clear</a>
+                     <a type="button" name="delete" href="remove_cart.php?id=<?php safer_echo($p['user_id']); ?>">&nbsp; Clear &nbsp;</a>
+                     <a type="submit" name="order" href="checkout.php?id=<?php safer_echo($p['user_id']); ?>">&nbsp; &nbsp; Checkout</a>
                 </div>
         </div>
     </div>

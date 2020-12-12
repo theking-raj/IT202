@@ -1,19 +1,16 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
 if (!has_role("Administrator")) {
-    //only Admin/ShopOwner can edit
     flash("You don't have permission to access this page");
     die(header("Location: login.php"));
 }
 ?>
 <?php
-//we'll put this at the top so both php block have access to it
 if(isset($_GET["id"])){
 	$id = $_GET["id"];
 }
 ?>
 <?php
-//saving
 if(isset($_POST["save"])){
 	//TODO add proper validation/checks
 	$name = $_POST["name"];
