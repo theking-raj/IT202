@@ -39,8 +39,8 @@ $total=0;
         <div class="total"><br>Total: $<?php safer_echo($total); ?></div>
         <div class="card-title">
                 <div>
-                     <a type="button" name="delete" href="remove_cart.php?id=<?php safer_echo($p['user_id']); ?>">Clear</a>
-                     <a type="button" name="order" href="ordersCreation.php?id=<?php safer_echo($p['user_id']); ?>">Order</a>
+                     <a type="button" name="delete" href="remove_cart.php?id=<?php safer_echo($p['user_id']); ?>">&nbsp; Clear &nbsp;</a>
+                     <a type="submit" name="order" href="checkout.php?id=<?php safer_echo($p['user_id']); ?>">&nbsp; &nbsp; Checkout</a>
                 </div>
         </div>
     </div>
