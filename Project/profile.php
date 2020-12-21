@@ -1,4 +1,3 @@
-
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
 //Note: we have this up here, so our update happens before our get/fetch
@@ -120,6 +119,13 @@ if (isset($_POST["saved"])) {
         <input type="password" name="password"/>
         <label for="cpw">Confirm Password</label>
         <input type="password" name="confirm"/>
-        <input type="submit" name="saved" value="Save Profile"/>
+        <label for="type">Account Privacy:</label>
+        <br>
+        <select name="account_type" id="type">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        <br>
+        </select>
+        <button type="submit" name="saved" value="Save Profile">Update Profile</button>
     </form>
 <?php require(__DIR__ . "/partials/flash.php");
