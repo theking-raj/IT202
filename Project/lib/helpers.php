@@ -165,4 +165,11 @@ function validateStreetAddress($string) {
     return preg_match($check_pattern, $string);
 }
 
+function get_account_type() {
+    if (is_logged_in() && isset($_SESSION["user"]["account_type"])) {
+        return $_SESSION["user"]["account_type"];
+    }
+    return "";
+}
+
 ?>

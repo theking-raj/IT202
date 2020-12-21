@@ -63,9 +63,19 @@ elseif(isset($_POST["categorize"])) {
   <br>
     Category<input type="radio" name="sort" value="category"/>
     Search<input type="radio" name="sort" value="search"/>
-    Price Sort<input type="checkbox" name="price" value="price"/> 
+    <div class=sort>
+    Sort By:<select name="sorting">
+            <option> <value="-1">None</option>
+            <option> <value="price">price</option>
+            <option> <value="rating">rating</option>
+    </select>
+    </div> 
   </br>
     <input type="submit" value="Go" name="go"/>
+    <?php if(has_role("Admin")): ?>
+    Search By Quantity:<input type="number" name="quantity"/>
+    <input type="submit" value="View" name="View"/>
+    <?php endif; ?>
 </form>
 <?php 
 
@@ -148,6 +158,15 @@ elseif(isset($_POST["categorize"])) {
                 </div>
             <?php endforeach; ?>
         </div>
+<nav aria-label="navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a>
+  </ul>
+</nav>
     <?php else: ?>
         <p>No results</p>
     <?php endif; ?>

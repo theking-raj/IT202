@@ -25,6 +25,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
             <li><a href="admin_create_cart.php">Add to Cart</a></li>
             <li><a href="admin_view_cart.php">View Cart</a></li>
             <li><a href="admin_list_products.php">View Products</a></li>
+            <li><a href="catalog.php">Catalog</a></li>
             <li><a href="recent_orders.php">Order History</a><li>
             <li><a href="profile.php">Profile</a></li>
             <li><a href="logout.php">Logout</a></li>           
